@@ -1,6 +1,7 @@
 package com.example.dvdrental;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "film")
@@ -13,8 +14,8 @@ public class Film {
     private String title;
     private String rating;
 
-    @OneToOne
-    private Actor actor;
+    @ManyToMany(mappedBy = "film")
+    private List<Actor> actor;
 
     public Integer getFilm_id() {
         return film_id;
@@ -40,11 +41,11 @@ public class Film {
         this.rating = rating;
     }
 
-    public Actor getActor() {
+    public List<Actor> getActor() {
         return actor;
     }
 
-    public void setActor(Actor actor) {
+    public void setActor(List<Actor> actor) {
         this.actor = actor;
     }
 }

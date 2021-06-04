@@ -1,7 +1,10 @@
 package com.example.dvdrental;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "actor")
@@ -18,17 +21,20 @@ public class Actor {
     @Column(name = "last_update")
     private Date last_update;
 
-    @OneToOne
-    private Film film;
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "actor_id", nullable = true),
+            inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "film_id", nullable = true)
+    )
+    private List<Film> film;
 
-    public Film getFilm() {
+    public List<Film> getFilm() {
         return film;
     }
 
-    public void setFilm(Film film) {
+    public void setFilm(List<Film> film) {
         this.film = film;
     }
-
 
     public Integer getActor_id() {
         return actor_id;
